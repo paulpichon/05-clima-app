@@ -1,0 +1,25 @@
+{
+  "name": "05-clima-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulpichon/05-clima-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulpichon/05-clima-app/issues"
+  },
+  "homepage": "https://github.com/paulpichon/05-clima-app#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^9.1.4"
+  }
+}
