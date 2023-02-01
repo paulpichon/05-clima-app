@@ -1,2 +1,4 @@
 #ignorar los modulos de NODE
 node_modules/
+#variables de entorno
+.env

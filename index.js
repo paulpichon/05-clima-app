@@ -1,3 +1,8 @@
+//variables de entorno
+import * as dotenv from 'dotenv';
+//se debe llamar para poder funcionar
+dotenv.config();
+
 import { inquirerMenu, leerInput, pausa } from "./helpers/inquirer.js"
 import { Busquedas } from "./models/busquedas.js";
 

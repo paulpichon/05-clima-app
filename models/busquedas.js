@@ -13,9 +13,10 @@ class Busquedas {
     }
 
     //getter parametros de la API MAPBOX
+    //process.env.MAPBOX_KEY se accede a el mediante las variables de entorno
     get paramsMapbox() {
         return {
-            'access_token':'pk.eyJ1IjoicGF1bHBmIiwiYSI6ImNsZGwzNTh0MzB0ZzQzcG1zeWNhNDhmamYifQ.OuB5BF3ZefrDBO343afJkA',
+            'access_token': process.env.MAPBOX_KEY,
             'limit': 5,
             'language': 'es'
         }
@@ -38,6 +39,7 @@ class Busquedas {
 
             console.log( resp.data );
 
+            return [];
 
         } catch (error) {
             
