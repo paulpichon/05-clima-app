@@ -1,10 +1,15 @@
+//importar fs para crear archivo e irlos guardando
+import * as fs from 'fs';
+
 //aqui se hara la logica para las busquedas
 import axios from 'axios';
 
 class Busquedas {
 
     //definir propiedades, pero es totalmente opcional hacerlo
-    historial = ['Tegucigalpa', 'Madrid', 'CDMX'];
+    historial = [];
+    //crear el PATH de la carpeta donde esta la BD
+    dbPath = './db/database.json';
 
     constructor() {
 
@@ -93,6 +98,42 @@ class Busquedas {
         } catch (error) {
             console.log( error );
         }
+
+    }
+
+    //metodo para gregar historial
+    //recibimos como argumento el lugar a registrar
+    agregarHistorial( lugar = '' ) {
+
+        //verificar si existe en el historial un registro repetido
+        if ( this.historial.includes( lugar.toLocaleLowerCase() ) ) {
+            //agregamos un return ya que no debe hacer nada
+            return;
+        }
+
+        //TODO: prevenir duplicados
+        //unshift() para colocar el ultimo registro al top de la lista
+        this.historial.unshift( lugar.toLocaleLowerCase() );
+        
+        //grabar en DB/archivo de texto
+        this.guardarDB();
+
+    }
+    //METODO PARA GUARDAR EN BD
+    guardarDB() {
+        //objeto 
+        const payload = {
+            historial: this.historial
+        };
+        
+        //creamos el archivo
+        //como argumentos van primero el path donde se creara el archivo
+        //y segundo la data que ira en el archivo
+        fs.writeFileSync( this.dbPath, JSON.stringify( payload ));
+    }
+
+    //metodo para leer BD
+    leerBD() {
 
     }
 

@@ -28,8 +28,15 @@ const main = async() => {
                 //buscar los lugares
                 const lugares = await busquedas.ciudad( terminoBusqueda );
                 const id = await listarLugares( lugares );
+                //si presionan 0
+                if ( id === '0') continue; //para que continue con la siguiente iteracion dle ciclo
+
                 //obtener informacion d ela ciudad para imprimirlo 
                 const lugarSel = lugares.find( l => l.id === id );
+                //guardar en la BD
+                //pasamos como argumento lugarSel.nombre ya que nos interesa guardar el nombre
+                busquedas.agregarHistorial( lugarSel.nombre );
+
                 //console.log( lugarSel );
                 //seleccionar el lugar
 
@@ -49,6 +56,16 @@ const main = async() => {
 
 
             break;
+
+            //funcion para guardar el historial de busqueda
+            case 2:
+                busquedas.historial.forEach( (lugar, index) => {
+                    //idx
+                    const idx = `${ index + 1}.`.green;
+                    console.log(`${ idx } - ${ lugar }`);
+                });
+            break;
+
         }
 
 
