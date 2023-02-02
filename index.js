@@ -59,10 +59,12 @@ const main = async() => {
 
             //funcion para guardar el historial de busqueda
             case 2:
-                busquedas.historial.forEach( (lugar, index) => {
+                
+                //busquedas.historialCapitalizado.forEach( (lugar, index) => {
+                busquedas.historialCapitalizado.forEach( (lugar, index) => {
                     //idx
                     const idx = `${ index + 1}.`.green;
-                    console.log(`${ idx } - ${ lugar }`);
+                    console.log(`${ idx } ${ lugar }`);
                 });
             break;
 

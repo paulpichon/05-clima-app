@@ -14,7 +14,25 @@ class Busquedas {
     constructor() {
 
         //TODO: leer DB si existe
+        this.leerBD();
 
+    }
+
+    //getter para convertir en MAYUSCULAS las palabras del historial
+    get historialCapitalizado() {   
+        
+        return this.historial.map( lugar => {
+            //dividimos en un arreglo separado por palabras
+            let palabras = lugar.split(' ');
+            //iteramos con un map
+            palabras = palabras.map( palabra => palabra[0].toUpperCase() + palabra.substring(1) );
+
+            //retornamos palabra .join() para volver a unirlo al arreglo
+            return palabras.join(' ');
+
+        });
+
+        
     }
 
     //getter parametros de la API MAPBOX
@@ -110,6 +128,10 @@ class Busquedas {
             //agregamos un return ya que no debe hacer nada
             return;
         }
+        //mantener a la vista solo 6 registros en el historial
+        //de esta forma solo se mostrar 6 en el historial
+        //[0, 1, 2, 3, 4, 5 ] -> registros a la vista solo 6
+        this.historial = this.historial.splice(0, 5);
 
         //TODO: prevenir duplicados
         //unshift() para colocar el ultimo registro al top de la lista
@@ -125,7 +147,7 @@ class Busquedas {
         const payload = {
             historial: this.historial
         };
-        
+
         //creamos el archivo
         //como argumentos van primero el path donde se creara el archivo
         //y segundo la data que ira en el archivo
@@ -134,7 +156,21 @@ class Busquedas {
 
     //metodo para leer BD
     leerBD() {
+        //verificar si existe si no esxiste el arreglo ya esta inicializado com un arreglo vacio
+        if (!fs.existsSync(this.dbPath)) {
+            return;
+        }
 
+        //leer informacion de la BD
+        //consr info ... readFileSync... path... {encoding:'utf-8'}
+        const info = fs.readFileSync(this.dbPath, { encoding: 'utf-8' });
+
+        //const data = JSON.aausjk(info);
+        //this.historial = ...historial
+        const data = JSON.parse( info );
+        //retorna esto
+        this.historial = data.historial;
+        
     }
 
 
