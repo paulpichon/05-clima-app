@@ -41,8 +41,8 @@ class Busquedas {
             return resp.data.features.map( lugar => ({
                 id: lugar.id,
                 nombre: lugar.place_name,
-                lng: lugar.center[0],
-                lat: lugar.center[1]
+                lat: lugar.center[0],
+                lng: lugar.center[1],
             }));
 
         } catch (error) {
