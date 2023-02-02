@@ -41,8 +41,8 @@ class Busquedas {
             return resp.data.features.map( lugar => ({
                 id: lugar.id,
                 nombre: lugar.place_name,
-                lat: lugar.center[0],
-                lng: lugar.center[1],
+                lng: lugar.center[0],
+                lat: lugar.center[1],
             }));
 
         } catch (error) {
@@ -53,6 +53,48 @@ class Busquedas {
 
     }
 
+    //GETTER PARA OPEN WEATHER
+    get paramsOpenWeather() {
+        return {
+            'appid': process.env.OPENWEATHER_KEY,
+            'units':'metric',
+            'lang': 'es'
+        }
+    }
+
+    //metodo para buscar el clima por ciudad
+    async climaLugar( lat, lon ) {
+        
+        try {
+            
+            //instance axios.create()
+            //peticion HTTP
+            const instance = axios.create({
+                baseURL: `https://api.openweathermap.org/data/2.5/weather`,
+                //llamamos al getter con los parametros para hacer la consulta a la API
+                //podemos desestructurar para mandar la lat y lon 
+                params: { ...this.paramsOpenWeather, lat, lon}
+            });
+
+            //resp.data
+            //hacer la peticion
+            const resp = await instance.get()
+            //desestructuramos para obtener weather que es un arreglo y main
+            const { weather, main } = resp.data;
+            
+            return {
+                desc: weather[0].description,
+                min: main.temp_min,
+                max: main.temp_max,
+                temp: main.temp
+            }
+
+
+        } catch (error) {
+            console.log( error );
+        }
+
+    }
 
 
 }
